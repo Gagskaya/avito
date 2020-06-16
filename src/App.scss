@@ -1,6 +1,7 @@
 .pagination {
         li {
-            a {
+            span {
+                cursor: pointer;
                 position: relative;
                 display: block;
                 padding: .5rem .75rem;
@@ -9,6 +10,9 @@
                 color: #007bff;
                 background-color: #fff;
                 border: 1px solid #dee2e6;
+                &.active {
+                    font-size: 18px;
+                }
             }
         } }
 
