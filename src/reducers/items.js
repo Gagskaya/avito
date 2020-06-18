@@ -1,12 +1,12 @@
 const initialState = {
-    items : null
+    repos : null
 }
-export const users = (state = initialState,action) => {
+export const items = (state = initialState,action) => {
     switch(action.type) {
-        case  'SET_USERS' :
+        case  'SET_ITEMS' :
         return {
             ...state,
-            items : action.payload
+            repos : action.payload
         }
         default : 
         return state;

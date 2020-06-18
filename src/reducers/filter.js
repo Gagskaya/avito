@@ -3,7 +3,7 @@ const initialState = {
 }
 export const filter = (state = initialState,action) => {
     switch (action.type) {
-        case 'FILTER_USERS':
+        case 'FILTER_ITEMS':
             return {
                 ...state,
                 filterValue : action.payload

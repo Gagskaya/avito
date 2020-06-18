@@ -2,25 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
-import { Users } from "./components/Users";
+import { Items } from "./components/Items";
 import { Pagination } from "./components/Pagination";
-import { setUsers } from "./actions/setUsers";
-import { filterUsers } from "./actions/filterUsers";
+import { setItems } from "./actions/setItems";
+import { filterItems } from "./actions/filterItems";
 import "./App.scss";
-const filterBy = (users,filterValue) => users && users.filter(user => user.login.toLowerCase().indexOf(filterValue.toLowerCase()) >= 0);
+const filterBy = (items,filterValue) =>  items.filter(item => item.name.toLowerCase().indexOf(filterValue.toLowerCase()) >= 0);
 const App = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(10);
-  const { users, setUsers, filterUsers, filterValue } = props;
+  const [itemsPerPage] = useState(10);
+  const { items, setItems, filterItems, filterValue } = props;
   useEffect(() => {
-    axios.get("https://api.github.com/users").then(({ data }) => {
-      setUsers(data);
+    axios.get("https://api.github.com/search/repositories?q=stars%3A%3E0&sort=stars&order=desc&page=1").then(({ data }) => {
+      setItems(data);
     });
-  }, [setUsers]);
+  }, [setItems]);
 
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstsUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users && users.slice(indexOfFirstsUser, indexOfLastUser);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items && items.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -31,19 +31,19 @@ const App = (props) => {
         type="text"
         placeholder="Введите запрос"
         value={filterValue}
-        onChange={(e) => filterUsers(e.target.value)}
+        onChange={(e) => filterItems(e.target.value)}
       />
-      <Users users={currentUsers} />
+      <Items items={currentItems} />
       <Pagination
-        usersPerPage={usersPerPage}
-        totalUsers={users && users.length}
+        itemsPerPage={itemsPerPage}
+        totalItems={items && items.length}
         paginate={paginate}
       />
     </div>
   );
 };
-const mapStateToProps = ({ users, filter }) => ({
-  users: users.items && filterBy(users.items,filter.filterValue),
+const mapStateToProps = ({ items, filter }) => ({
+  items: items.repos && filterBy(items.repos.items,filter.filterValue),
   filterValue: filter.filterValue,
 });
-export default connect(mapStateToProps, { setUsers, filterUsers })(App);
+export default connect(mapStateToProps, { setItems, filterItems })(App);

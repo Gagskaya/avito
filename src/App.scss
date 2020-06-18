@@ -1,3 +1,7 @@
+.app {
+    max-width: 1140px;
+    margin: 0 auto;
+}
 .pagination {
         li {
             span {
@@ -15,4 +19,7 @@
                 }
             }
         } }
-
+.items {
+    list-style-type: none;
+    padding: 5px;
+}

@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
-import { users } from "./users";
+import { items } from "./items";
 import { filter } from "./filter";
 export const rootReducer = combineReducers({
-    users,
+    items,
     filter
 });

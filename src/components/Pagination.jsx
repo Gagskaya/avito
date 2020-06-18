@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-export const Pagination = ({ usersPerPage, totalUsers, paginate }) => {
+export const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalUsers / usersPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
   return (
