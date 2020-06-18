@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
   const pageNumbers = [];

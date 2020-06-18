@@ -22,4 +22,19 @@
 .items {
     list-style-type: none;
     padding: 5px;
+    li {
+        span  {
+            margin-right: 5px;
+            i {
+                svg {
+                    position: relative;
+                    top: -1px;
+                    margin-left: 5px;
+                }
+            }
+            &:first-child {
+                text-transform: capitalize;
+            }
+        }
+    }
 }

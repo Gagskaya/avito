@@ -11,7 +11,7 @@ const filterBy = (items,filterValue) =>  items.filter(item => item.name.toLowerC
 const App = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const { items, setItems, filterItems, filterValue } = props;
+  const { items, setItems, filterItems, filterValue, totalCount } = props;
   useEffect(() => {
     axios.get("https://api.github.com/search/repositories?q=stars%3A%3E0&sort=stars&order=desc&page=1").then(({ data }) => {
       setItems(data);
@@ -33,7 +33,7 @@ const App = (props) => {
         value={filterValue}
         onChange={(e) => filterItems(e.target.value)}
       />
-      <Items items={currentItems} />
+      <Items items={currentItems} totalCount={totalCount}/>
       <Pagination
         itemsPerPage={itemsPerPage}
         totalItems={items && items.length}
@@ -44,6 +44,7 @@ const App = (props) => {
 };
 const mapStateToProps = ({ items, filter }) => ({
   items: items.repos && filterBy(items.repos.items,filter.filterValue),
+  totalCount : items.repos && items.repos.total_count,
   filterValue: filter.filterValue,
 });
 export default connect(mapStateToProps, { setItems, filterItems })(App);
